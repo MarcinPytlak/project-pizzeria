@@ -85,7 +85,7 @@
       thisProduct.id = id;
       thisProduct.data = data;
       thisProduct.renderInMenu();
-      console.log('new Product:', thisProduct);
+      //console.log('new Product:', thisProduct);
       thisProduct.getElements();
       thisProduct.initAccordion();
       thisProduct.initOrderForm();
@@ -146,6 +146,7 @@
       thisProduct.cartButton.addEventListener('click', function(event){
         event.preventDefault();
         thisProduct.processOrder();
+        thisProduct.addToCart();
       });
     }
     processOrder(){
@@ -190,6 +191,7 @@
         }
       }
       price *= thisProduct.amountWidget.value;
+      thisProduct.priceSingle = price;
       thisProduct.priceElem.innerHTML = price;
     }
     initAmountWidget(){
@@ -199,6 +201,51 @@
         thisProduct.processOrder();
       });
     }
+    addToCart(){
+      const thisProduct = this;
+      app.cart.add(thisProduct.prepareCartProduct());
+    }
+    prepareCartProduct(){
+      const thisProduct = this;
+      const productSummary = {
+        id : thisProduct.id,
+        name : thisProduct.data.name,
+        amount : thisProduct.amountWidget.value,
+        priceSingle : thisProduct.priceSingle / thisProduct.amountWidget.value,
+        price : thisProduct.priceSingle,
+        params : this.prepareCartProductParams(),
+      };
+      return productSummary;
+    }
+    prepareCartProductParams(){
+      const thisProduct = this;
+
+      const formData = utils.serializeFormToObject(thisProduct.form);
+      const params = {};
+
+      // for every category (param)
+      for(let paramId in thisProduct.data.params) {
+        const param = thisProduct.data.params[paramId];
+
+        // create category param in params const eg. params = { ingredients: { name: 'Ingredients', options: {}}}
+        params[paramId] = {
+          label: param.label,
+          options: {}
+        };
+
+        // for every option in this category
+        for(let optionId in param.options) {
+          const option = param.options[optionId];
+          const optionSelected = formData[paramId] && formData[paramId].includes(optionId);
+          if(optionSelected) {
+            params[paramId].options[optionId] = option.label;
+          }
+        }
+        console.log(params);
+      }
+
+      return params;
+    }
   }
   class AmountWidget{
     constructor(element){
@@ -207,8 +254,8 @@
       thisWidget.setValue(settings.amountWidget.defaultValue);
       thisWidget.initActions();
 
-      console.log('AmountWidget', thisWidget);
-      console.log('constructor arguments:', element);
+      //console.log('AmountWidget', thisWidget);
+      //console.log('constructor arguments:', element);
     }
     getElements(element){
       const thisWidget = this;
@@ -255,6 +302,7 @@
     constructor(element){
       const thisCart = this;
       thisCart.products = [];
+      //thisCart.add();
       thisCart.getElements(element);
       console.log('new cart', thisCart);
       thisCart.initActions();
@@ -264,6 +312,8 @@
       thisCart.dom = {};
       thisCart.dom.wrapper = element;
       thisCart.dom.toggleTrigger = thisCart.dom.wrapper.querySelector(select.cart.toggleTrigger);
+      console.log(thisCart.dom.wrapper);
+      thisCart.dom.productList = thisCart.dom.wrapper.querySelector(select.cart.productList);
     }
     initActions(){
       const thisCart = this;
@@ -272,8 +322,15 @@
         thisCart.dom.wrapper.classList.toggle(classNames.cart.wrapperActive);
       });
     }
-    
-    
+    add(menuProduct){
+      const thisCart = this;
+      console.log('adding product', menuProduct);
+      const generatedHTML = templates.cartProduct(menuProduct);
+      const generatedDOM = utils.createDOMFromHTML(generatedHTML);
+      console.log(generatedDOM);
+      // const menu = thisCart.dom.productList.querySelector(thisCart.dom.productList);
+      thisCart.dom.productList.appendChild(generatedDOM);
+    }
   }
   const app = {
     initMenu : function(){
@@ -285,13 +342,12 @@
     },
     initData : function(){
       const thisApp = this;
-
       thisApp.data = dataSource;
     },
     initCart: function(){
       const thisApp = this;
       const cartElem = document.querySelector(select.containerOf.cart);
-      thisApp.cart = new Cart(cartElem)
+      thisApp.cart = new Cart(cartElem);
 
     },
     init: function(){
