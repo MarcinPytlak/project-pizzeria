@@ -307,6 +307,7 @@
       //thisCart.add();
       thisCart.getElements(element);
       thisCart.initActions();
+      console.log(thisCart.dom.productList);
     }
     getElements(element){
       const thisCart = this;
@@ -317,7 +318,6 @@
       thisCart.dom.deliveryFee = thisCart.dom.wrapper.querySelector(select.cart.deliveryFee);
       thisCart.dom.subtotalPrice = thisCart.dom.wrapper.querySelector(select.cart.subtotalPrice);
       thisCart.dom.totalPrice = thisCart.dom.wrapper.querySelectorAll(select.cart.totalPrice);
-      
       thisCart.dom.totalNumber = thisCart.dom.wrapper.querySelector(select.cart.totalNumber);
     }
     initActions(){
@@ -330,20 +330,35 @@
         thisCart.update();
       });
       thisCart.dom.productList.addEventListener('remove', function(event){
-        console.log('event.detail.cartProduct');
+        // console.log('event.detail.cartProduct');
         thisCart.remove(event.detail.cartProduct);
         
         
       });
     }
     remove(product){
+      const thisCart = this;
+      const indexOfProduct = thisCart.products.indexOf(product);
+      const removeValue = thisCart.products.splice(product, 1);
+      // tutaj nie moge znalezc tylko tego konkretnego produktu w elemencie DOM//
+      // const removeDOM = thisCart.dom.wrapper.querySelector(product);
+      // removeDOM.remove();
+
+      // a ta metoda usuwa caly DOM nie zaleznie od tego co wpiszesz w nawiasie//
+      //thisCart.dom.productList.remove(product);
+      thisCart.update();
+      console.log(removeValue);
+      console.log(indexOfProduct);
       console.log(product);
+      console.log(thisCart.product);
     }
     add(menuProduct){
       const thisCart = this;
       
       const generatedHTML = templates.cartProduct(menuProduct);
       const generatedDOM = utils.createDOMFromHTML(generatedHTML);
+      console.log(generatedDOM);
+      console.log(thisCart.dom.productList)
       
       // const menu = thisCart.dom.productList.querySelector(thisCart.dom.productList);
       thisCart.dom.productList.appendChild(generatedDOM);
@@ -418,6 +433,7 @@
         },
       });
       thisCartProduct.dom.wrapper.dispatchEvent(event);
+
     }
     initActions(){
       const thisCartProduct = this;
@@ -427,8 +443,7 @@
       });
       thisCartProduct.dom.remove.addEventListener('click', function(event){
         event.preventDefault();
-        this.remove();
-        
+        thisCartProduct.remove();
       });
     }
   }
