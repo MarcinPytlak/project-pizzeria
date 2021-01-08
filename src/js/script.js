@@ -339,13 +339,8 @@
     remove(product){
       const thisCart = this;
       const indexOfProduct = thisCart.products.indexOf(product);
-      const removeValue = thisCart.products.splice(product, 1);
-      // tutaj nie moge znalezc tylko tego konkretnego produktu w elemencie DOM//
-      // const removeDOM = thisCart.dom.wrapper.querySelector(product);
-      // removeDOM.remove();
-
-      // a ta metoda usuwa caly DOM nie zaleznie od tego co wpiszesz w nawiasie//
-      //thisCart.dom.productList.remove(product);
+      const removeValue = thisCart.products.splice(indexOfProduct, 1);
+      product.dom.wrapper.remove();
       thisCart.update();
       console.log(removeValue);
       console.log(indexOfProduct);
@@ -358,7 +353,7 @@
       const generatedHTML = templates.cartProduct(menuProduct);
       const generatedDOM = utils.createDOMFromHTML(generatedHTML);
       console.log(generatedDOM);
-      console.log(thisCart.dom.productList)
+      console.log(thisCart.dom.productList);
       
       // const menu = thisCart.dom.productList.querySelector(thisCart.dom.productList);
       thisCart.dom.productList.appendChild(generatedDOM);
@@ -379,10 +374,12 @@
       thisCart.totalPrice;
       if(Object.entries(thisCart.products).length ===0){
         thisCart.totalPrice = 0;
+        thisCart.dom.deliveryFee.innerHTML = 0;
       }else{
         thisCart.totalPrice = subtotalPrice + deliveryFee;
+        thisCart.dom.deliveryFee.innerHTML = deliveryFee;
       }
-      thisCart.dom.deliveryFee.innerHTML = deliveryFee;
+      
       thisCart.dom.subtotalPrice.innerHTML = subtotalPrice;
       thisCart.dom.totalNumber.innerHTML = totalNumber;
       for(let elementTotalPrice of thisCart.dom.totalPrice){
