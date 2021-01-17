@@ -17,6 +17,7 @@ class CartProduct{
   getElements(element){
     const thisCartProduct = this;
     thisCartProduct.dom = {};
+    console.log(element);
     thisCartProduct.dom.wrapper = element;
     thisCartProduct.dom.amountWidget = thisCartProduct.dom.wrapper.querySelector(select.cartProduct.amountWidget);
     thisCartProduct.dom.price = thisCartProduct.dom.wrapper.querySelector(select.cartProduct.price);
