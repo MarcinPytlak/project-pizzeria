@@ -158,7 +158,7 @@
     }
 
     &.selected {
-      color: lighten($color-success, 40%);
+      color: lighten($color-dark, 40%);
 
       &::after {
         position: absolute;
@@ -167,8 +167,9 @@
         height: 100%;
         left: 0;
         top: 0;
-        background: $color-success;
-        opacity: 0.4;
+        background: $color-booked;
+        opacity: 0.2;
+        border: 4px solid coral;
       }
 
     }
