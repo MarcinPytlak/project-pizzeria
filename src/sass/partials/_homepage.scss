@@ -1,0 +1,84 @@
+#pages {
+  > * {
+    display: none;
+  }
+
+  > .active {
+    display: block;
+  }
+}
+
+.homepage-widget {
+  h4 {
+    font-size: 30px;
+    color: $color-light;
+    text-align: center;
+    font-weight: bolder;
+  }
+
+  p {
+    color: $color-light;
+  }
+
+  .homepage_firstlevel {
+    margin-top: 20px;
+    margin-left: -10px;
+    display: flex;
+    flex: 0 0 48%;
+  }
+
+  .object {
+    flex: 0 0 50%;
+    margin: 0 10px;
+    height: 150px;
+    background-position: center;
+    background-size: cover;
+
+    h4 {
+      padding-top: 30px;
+    }
+  }
+
+  .order {
+    background-image: url(../images/homepage/pizza-1.jpg);
+  }
+
+  .reserve {
+    background-image: url(../images/homepage/pizza-2.jpg);
+  }
+
+  .information {
+    width: 105%;
+    background: red;
+    margin-top: 10px;
+    text-align: center;
+    padding: 30px;
+    margin-right: 10px;
+  }
+}
+
+.home-wrapper {
+  max-width: 800px;
+  text-align: right;
+
+  .home_gallery {
+    width: 33%;
+    display: inline-block;
+    margin: 15px 0;
+
+    .home_picture {
+      position: relative;
+
+      img {
+        height: 150px;
+        width: 80%;
+      }
+      
+      i {
+        transform: translate(-70px, 90px);
+        padding: 0 5px;
+        font-size: 25px;
+      }
+    }
+  }
+}

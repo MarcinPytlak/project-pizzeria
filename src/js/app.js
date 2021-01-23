@@ -51,7 +51,7 @@ const app = {
   },
   initMenu : function(){
     const thisApp = this;
-    //
+    
     for(let productData in thisApp.data.products){
       new Product(thisApp.data.products[productData].id, thisApp.data.products[productData]);
     }
@@ -67,10 +67,8 @@ const app = {
       .then(function(parsedResponde){
         console.log('parsedResponde', parsedResponde);
         thisApp.data.products = parsedResponde;
-        console.log(thisApp.data.products);
         app.initMenu();
       });
-    console.log('thisapp.data', JSON.stringify(thisApp.data));
   },
   initCart: function(){
     const thisApp = this;
@@ -85,14 +83,12 @@ const app = {
   initBooking: function(){
     const thisApp = this;
     thisApp.bookingList = document.querySelector(select.containerOf.booking);
-    console.log(thisApp.bookingList);
     thisApp.book = new Booking(thisApp.bookingList);
 
   },
   initHome: function(){
     const thisApp = this;
     thisApp.homeList = document.querySelector(select.containerOf.homepage);
-    console.log(thisApp.homeList);
     thisApp.home =  new Home(thisApp.homeList);  
     
   },
