@@ -1,13 +1,3 @@
-#pages {
-  > * {
-    display: none;
-  }
-
-  > .active {
-    display: block;
-  }
-}
-
 .homepage-widget {
   h4 {
     font-size: 30px;
@@ -18,6 +8,37 @@
 
   p {
     color: $color-light;
+  }
+
+  .objectp {
+    text-align: center;
+  }
+
+  .object.order .objectp {
+    transform: translateY(-18px);
+    visibility: hidden;
+  }
+
+  .object.order:hover .objectp {
+    visibility: visible;
+    transform: translateY(-40px);
+    transition: 1s;
+  }
+
+  .object.reserve .objectp {
+    transform: translateY(-18px);
+    visibility: hidden;
+  }
+
+  .object.reserve:hover .objectp {
+    visibility: visible;
+    transform: translateY(-40px);
+    transition: 1s;
+  }
+
+  .object:hover h4 {
+    transform: translateY(-20px);
+    transition: 1s;
   }
 
   .homepage_firstlevel {
@@ -33,6 +54,7 @@
     height: 150px;
     background-position: center;
     background-size: cover;
+    transition: 1s;
 
     h4 {
       padding-top: 30px;
@@ -60,6 +82,7 @@
 .home-wrapper {
   max-width: 800px;
   text-align: right;
+  transform: translateX(-9px);
 
   .home_gallery {
     width: 33%;
@@ -67,18 +90,79 @@
     margin: 15px 0;
 
     .home_picture {
-      position: relative;
+      display: flex;
+
+      i {
+        padding: 0 5px;
+        font-size: 25px;
+        color: $color-light;
+        flex-direction: row;
+        transform: translate(-130px, 70px);
+        height: 20px;
+        opacity: 0;
+      }
+
+      i:hover {
+        color: $color-main;
+      }
 
       img {
         height: 150px;
         width: 80%;
       }
-      
-      i {
-        transform: translate(-70px, 90px);
-        padding: 0 5px;
-        font-size: 25px;
-      }
     }
+
+    .home_picture:hover i {
+      transition: 1s;
+      opacity: 1;
+    }
+
+    .home_picture img:hover {
+      filter: brightness(50%);
+    }
+  }
+}
+
+.main-carousel {
+  height: 300px;
+  margin: 50px 0;
+
+  .carousel-cell {
+    width: 100%; /* full width */
+    height: 300px;
+    /* center images in cells with flexbox */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: right;
+
+    h4 {
+      position: absolute;
+      transform: translate(200px, -110px);
+      font-size: 30px;
+      color: $color-dark;
+    }
+    
+    p {
+      color: $color-dark;
+      width: 150px;
+      text-align: center;
+      transform: translateX(20px);
+    }
+
+    .sign {
+      transform: translate(-100px, 80px);
+    }
+  }
+
+  .carousel.is-fullscreen .carousel-cell {
+    height: 300px;
+  }
+
+  .carousel-cell img {
+    display: block;
+    max-height: 300px;
+    padding: 5px;
+    width: 60%;
   }
 }
