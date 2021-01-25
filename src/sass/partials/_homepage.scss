@@ -82,7 +82,7 @@
 .home-wrapper {
   max-width: 800px;
   text-align: right;
-  transform: translateX(-9px);
+  transform: translateX(35px);
 
   .home_gallery {
     width: 33%;
@@ -97,13 +97,15 @@
         font-size: 25px;
         color: $color-light;
         flex-direction: row;
-        transform: translate(-130px, 70px);
+        transform: translate(-70px, 60px);
         height: 20px;
-        opacity: 0;
+        opacity: 1.5;
+        transition: 1s;
       }
 
       i:hover {
         color: $color-main;
+        opacity: 1;
       }
 
       img {
@@ -117,10 +119,28 @@
       opacity: 1;
     }
 
-    .home_picture img:hover {
-      filter: brightness(50%);
+    .overlay {
+      width: 200px;
+      height: 150px;
+      position: absolute;
+      background-color: #000;
+      opacity: 0;
+    }
+    
+    .overlay:hover {
+      opacity: 0.6;
+      transition: 1s;
     }
   }
+}
+
+.link {
+  color: $color-main;
+  text-align: center;
+  font-size: 13px;
+  margin: 20px;
+  transform: translateX(-17%);
+  text-decoration: underline;
 }
 
 .main-carousel {
@@ -142,7 +162,7 @@
       font-size: 30px;
       color: $color-dark;
     }
-    
+
     p {
       color: $color-dark;
       width: 150px;

@@ -30,6 +30,8 @@ class Home{
     const thisHome = this;
     thisHome.dom.carouselContainer = thisHome.dom.wrapper.querySelector(select.containerOf.carousel);
     thisHome.dom.buttons = thisHome.dom.wrapper.querySelectorAll('.object');
+    thisHome.dom.pages = document.querySelector(select.containerOf.pages).children;
+    thisHome.dom.navLinks = document.querySelectorAll(select.nav.links);
     // eslint-disable-next-line no-unused-vars
     let flkty = new Flickity( thisHome.dom.carouselContainer, {
     
@@ -41,7 +43,19 @@ class Home{
     [...thisHome.dom.buttons].forEach(elem => {
       elem.addEventListener('click', function(){
         if(elem.classList.contains('order')){
-          console.log('halo');
+          thisHome.dom.pages[0].classList.remove('active');
+          thisHome.dom.pages[1].classList.add('active');
+          thisHome.dom.navLinks[0].classList.remove('active');
+          thisHome.dom.navLinks[1].classList.add('active');
+          window.location.hash = '#/order';
+        } 
+        if(elem.classList.contains('reserve')){
+          thisHome.dom.pages[0].classList.remove('active');
+          thisHome.dom.pages[2].classList.add('active');
+          thisHome.dom.navLinks[0].classList.remove('active');
+          thisHome.dom.navLinks[2].classList.add('active');
+          window.location.hash = '#/booking';
+
         }
       });
     });
