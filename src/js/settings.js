@@ -106,7 +106,7 @@ export const classNames = {
 export const settings = {
   hours: {
     open: 12,
-    close: 24,
+    close: 23,
   },
   amountWidget: {
     defaultValue: 1,
@@ -123,7 +123,7 @@ export const settings = {
     tableIdAttribute: 'data-table',
   },
   db: {
-    url: '//localhost:3131',
+    url: '//' + window.location.hostname + (window.location.hostname=='localhost' ? ':3131' : ''),
     product: 'product',
     order: 'order',
     booking: 'booking',
